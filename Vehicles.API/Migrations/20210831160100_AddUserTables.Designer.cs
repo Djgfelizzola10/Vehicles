@@ -10,7 +10,7 @@ using Vehicles.API.Data;
 namespace Vehicles.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210831015904_AddUserTables")]
+    [Migration("20210831160100_AddUserTables")]
     partial class AddUserTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,7 +224,6 @@ namespace Vehicles.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -234,8 +233,8 @@ namespace Vehicles.API.Migrations
 
                     b.Property<string>("Document")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("DocumentTypeId")
                         .HasColumnType("int");

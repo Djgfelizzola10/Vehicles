@@ -23,17 +23,16 @@ namespace Vehicles.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddIdentity<User, IdentityRole>(x =>
              {
-                  x.SignIn.RequireConfirmedEmail = true;
                 x.User.RequireUniqueEmail = true;
                 x.Password.RequireDigit = false;
                 x.Password.RequiredUniqueChars = 0;
                 x.Password.RequireLowercase = false;
                 x.Password.RequireNonAlphanumeric = false;
                 x.Password.RequireUppercase = false;
-            })
-                .AddEntityFrameworkStores<DataContext>();
+            }).AddEntityFrameworkStores<DataContext>();
 
             services.AddDbContext<DataContext>(x =>
             {

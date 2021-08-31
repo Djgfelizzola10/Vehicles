@@ -27,13 +27,13 @@ namespace Vehicles.API.Data
             await CheckDocumentTypeAsync();
             await CheckProcedureAsync();
             await CheckRolesAsycn();
-            await CheckUserAsycn("1010","Luis","Salazar","luis@yopmail.com","311 322 4620","Calle Luna Calle Sol",UserType.Admin);
-            await CheckUserAsycn("2020", "Juan", "Zuluaga", "zulu@yopmail.com", "311 322 4620", "Calle Luna Calle Sol", UserType.User);
-            await CheckUserAsycn("3030", "Ledys", "Bedoya", "ledys@yopmail.com", "311 322 4620", "Calle Luna Calle Sol", UserType.User);
+            await CheckUserAsync("1010", "Luis", "Salazar", "luis@yopmail.com", "311 322 4620", "Calle Luna Calle Sol", UserType.Admin);
+            await CheckUserAsync("2020", "Juan", "Zuluaga", "zulu@yopmail.com", "311 322 4620", "Calle Luna Calle Sol", UserType.User);
+            await CheckUserAsync("3030", "Ledys", "Bedoya", "ledys@yopmail.com", "311 322 4620", "Calle Luna Calle Sol", UserType.User);
 
         }
 
-        private async Task CheckUserAsycn(string document, string firstName, string lastName, string email, string phoneNumber, string address, UserType userType)
+        private async Task CheckUserAsync(string document, string firstName, string lastName, string email, string phoneNumber, string address, UserType userType)
         {
             User user = await _userHelper.GetUserAsync(email);
             if (user == null)
@@ -50,7 +50,7 @@ namespace Vehicles.API.Data
                     UserName=email,
                     UserType=userType
                 };
-                await _userHelper.AddUserAsync(user, "123456");
+                await _userHelper.AddUserAsync(user,"1234567");
                 await _userHelper.AddUserToRoleAsync(user, userType.ToString());
             }
         }

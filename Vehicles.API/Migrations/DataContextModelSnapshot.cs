@@ -222,7 +222,6 @@ namespace Vehicles.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -232,8 +231,8 @@ namespace Vehicles.API.Migrations
 
                     b.Property<string>("Document")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("DocumentTypeId")
                         .HasColumnType("int");
