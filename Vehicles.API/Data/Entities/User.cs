@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Vehicles.API.Models;
 using Vehicles.Common.Enums;
 
 namespace Vehicles.API.Data.Entities
@@ -46,5 +47,8 @@ namespace Vehicles.API.Data.Entities
 
         [Display(Name = "Usuario")]
         public string FullName => $"{FirstName} {LastName}";
+
+        public ICollection<Vehicle> Vehicles { get; set; }
+
     }
 }
