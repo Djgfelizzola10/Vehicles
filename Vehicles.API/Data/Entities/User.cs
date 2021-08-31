@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Vehicles.Common.Enums;
 
 namespace Vehicles.API.Data.Entities
 {
@@ -38,5 +39,11 @@ namespace Vehicles.API.Data.Entities
         public string ImageFullPath => ImageId == Guid.Empty
             ? $"https://https://localhost:44345//images/noimage.png"
             : $"https://vehiclessalazar.blob.core.windows.net/users/{ImageId}";
+
+        [Display(Name = "Tipo de usuario")]
+        public UserType UserType { get; set; }
+
+        [Display(Name = "Usuario")]
+        public string FullName => $"{FirstName}{LastName}";
     }
 }
