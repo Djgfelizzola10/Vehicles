@@ -2,14 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Vehicles.API.Models;
 using Vehicles.Common.Enums;
 
 namespace Vehicles.API.Data.Entities
 {
-    public class User:IdentityUser
+    public class User : IdentityUser
     {
         [Display(Name = "Nombres")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]

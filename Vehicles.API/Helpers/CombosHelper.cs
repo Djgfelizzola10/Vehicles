@@ -16,7 +16,7 @@ namespace Vehicles.API.Helpers
 
         public IEnumerable<SelectListItem> GetComboProcedures()
         {
-            List<SelectListItem> list = _context.Brands.Select(x => new SelectListItem
+            List<SelectListItem> list = _context.Procedures.Select(x => new SelectListItem
             {
                 Text = x.Description,
                 Value = $"{x.Id}"
@@ -35,7 +35,7 @@ namespace Vehicles.API.Helpers
 
         public IEnumerable<SelectListItem> GetComboBrands()
         {
-            List<SelectListItem> list = _context.Procedures.Select(x => new SelectListItem
+            List<SelectListItem> list = _context.Brands.Select(x => new SelectListItem
             {
                 Text = x.Description,
                 Value = $"{x.Id}"

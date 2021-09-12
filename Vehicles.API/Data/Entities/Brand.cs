@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Vehicles.API.Models;
 
 namespace Vehicles.API.Data.Entities
 {

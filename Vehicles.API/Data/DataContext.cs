@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vehicles.API.Data.Entities;
-using Vehicles.API.Models;
 
 namespace Vehicles.API.Data
 {
