@@ -10,6 +10,7 @@ using Vehicles.API.Data.Entities;
 using Vehicles.API.Helpers;
 using Vehicles.API.Models;
 using Vehicles.Common.Enums;
+using Vehicles.Common.Models;
 
 namespace Vehicles.API.Controllers
 {
@@ -21,14 +22,16 @@ namespace Vehicles.API.Controllers
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IBlobHelper _blobHelper;
+        private readonly IMailHelper _mailHelper;
 
-        public UsersController(DataContext context, IUserHelper userHelper, ICombosHelper combosHelper, IConverterHelper converterHelper, IBlobHelper blobHelper)
+        public UsersController(DataContext context, IUserHelper userHelper, ICombosHelper combosHelper, IConverterHelper converterHelper, IBlobHelper blobHelper, IMailHelper mailHelper)
         {
             _context = context;
             _userHelper = userHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
             _blobHelper = blobHelper;
+            _mailHelper = mailHelper;
         }
 
         public async Task<IActionResult> Index()
@@ -53,7 +56,6 @@ namespace Vehicles.API.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UserViewModel model)
         {
-
             if (ModelState.IsValid)
             {
                 Guid imageId = Guid.Empty;
@@ -65,13 +67,27 @@ namespace Vehicles.API.Controllers
 
                 User user = await _converterHelper.ToUserAsync(model, imageId, true);
                 user.UserType = UserType.User;
-                await _userHelper.AddUserAsync(user, "123456");
+                await _userHelper.AddUserAsync(user, "1234567");
                 await _userHelper.AddUserToRoleAsync(user, user.UserType.ToString());
+
+                string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                string tokenLink = Url.Action("ConfirmEmail", "Account", new
+                {
+                    userid = user.Id,
+                    token = myToken
+                }, protocol: HttpContext.Request.Scheme);
+
+                Response response = _mailHelper.SendMail(model.Email, "Vehicles - Confirmación de cuenta", $"<h1>Vehicles - Confirmación de cuenta</h1>" +
+                    $"Para habilitar el usuario, " +
+                    $"por favor hacer clic en el siguiente enlace: </br></br><a href = \"{tokenLink}\">Confirmar Email</a>");
+
                 return RedirectToAction(nameof(Index));
             }
+
             model.DocumentTypes = _combosHelper.GetComboDocumentType();
             return View(model);
         }
+
 
         public async Task<IActionResult> Edit(string id)
         {
@@ -230,7 +246,7 @@ namespace Vehicles.API.Controllers
 
         public async Task<IActionResult> EditVehicle(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
